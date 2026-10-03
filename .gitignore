@@ -1,0 +1,86 @@
+# ─── Claude / AI-assistant artifacts — never publish these ───
+CLAUDE.md
+CLAUDE.local.md
+.claude/
+.claude-code/
+**/.claude/
+*.claude-session
+.cursor/
+.cursorrules
+.windsurfrules
+.aider*
+
+# ─── Secrets & credentials ───
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.mobileprovision
+*.cer
+*.certSigningRequest
+secrets.json
+secrets.yml
+**/GoogleService-Info.plist
+**/Secrets.swift
+**/Config.local.swift
+*.keystore
+credentials.json
+api_keys.txt
+
+# ─── Python (Phase 1 — Jupyter prototype) ───
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Large/raw audio you don't want bloating the repo (keep curated samples/ instead)
+*.wav
+*.aiff
+*.flac
+!samples/**/*.wav
+notebooks/output/
+
+# ─── Swift / Xcode / iOS (Phase 2) ───
+.build/
+.swiftpm/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+.swiftpm/xcode/package.xcworkspace/xcuserdata/
+Package.resolved
+
+# ─── Fastlane / signing (if added later) ───
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+*.mobileprovision
+
+# ─── Editors / OS ───
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# ─── Misc local-only ───
+*.local
+*.bak
+scratch/
+TODO.local.md
