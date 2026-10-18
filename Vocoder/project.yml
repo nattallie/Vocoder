@@ -29,3 +29,28 @@ targets:
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
         INFOPLIST_KEY_NSMicrophoneUsageDescription: "Vocoder uses the microphone to record a short clip you can hear processed through the cochlear-implant simulation."
+
+  VocoderTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: VocoderTests
+    dependencies:
+      - target: Vocoder
+      - package: CIVocoderKit
+    settings:
+      base:
+        SWIFT_VERSION: "5.0"
+        GENERATE_INFOPLIST_FILE: YES
+
+schemes:
+  Vocoder:
+    build:
+      targets:
+        Vocoder: all
+        VocoderTests: [test]
+    test:
+      targets:
+        - VocoderTests
+    run:
+      config: Debug

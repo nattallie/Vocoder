@@ -122,3 +122,20 @@ extension AudioRecorderController: AVAudioRecorderDelegate {
         }
     }
 }
+
+/// The surface `SimulatorViewModel`/`RecordSheetView` actually call -- lets tests
+/// substitute a fake recorder instead of requesting real microphone permission.
+@MainActor
+protocol AudioRecorderControlling: AnyObject {
+    var isRecording: Bool { get }
+    var elapsed: TimeInterval { get }
+    var errorMessage: String? { get set }
+    var permissionState: AudioRecorderController.PermissionState { get }
+    func checkPermission()
+    func requestPermissionAndStart(completion: @escaping (Bool) -> Void)
+    func startRecording()
+    @discardableResult func stopRecording() -> URL?
+    func cancelRecording()
+}
+
+extension AudioRecorderController: AudioRecorderControlling {}

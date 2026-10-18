@@ -12,9 +12,9 @@ import Observation
 final class SimulatorViewModel {
     static let channelOptions = [4, 8, 16, 22]
 
-    let library = AudioLibrary()
-    let engine = VocoderEngine()
-    let recorder = AudioRecorderController()
+    let library: AudioLibraryProviding
+    let engine: VocoderEngineProviding
+    let recorder: AudioRecorderControlling
 
     var selectedSourceID: String?
     var channelIndex = 1 // index into channelOptions, default N=8
@@ -23,6 +23,20 @@ final class SimulatorViewModel {
     var showingRecordSheet = false
     var showingFileImporter = false
     var showingPermissionDeniedAlert = false
+
+    /// Tests inject fakes here to exercise this view model's logic without touching
+    /// the filesystem, mic, or AVAudioEngine. (Default arguments can't construct these
+    /// --MainActor-isolated-- types directly, since default-value expressions aren't
+    /// themselves actor-isolated; the real stack is wired up by the convenience init below.)
+    init(library: AudioLibraryProviding, engine: VocoderEngineProviding, recorder: AudioRecorderControlling) {
+        self.library = library
+        self.engine = engine
+        self.recorder = recorder
+    }
+
+    convenience init() {
+        self.init(library: AudioLibrary(), engine: VocoderEngine(), recorder: AudioRecorderController())
+    }
 
     var channels: Int { Self.channelOptions[channelIndex] }
 

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RecordSheetView: View {
-    var recorder: AudioRecorderController
+    var recorder: AudioRecorderControlling
     let onSave: (URL) -> Void
 
     @Environment(\.dismiss) private var dismiss

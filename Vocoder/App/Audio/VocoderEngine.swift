@@ -155,3 +155,18 @@ final class VocoderEngine {
         }
     }
 }
+
+/// The surface `SimulatorViewModel` actually calls -- lets tests substitute a fake
+/// engine instead of driving real `AVAudioEngine` playback.
+@MainActor
+protocol VocoderEngineProviding: AnyObject {
+    var isPlaying: Bool { get }
+    var isProcessing: Bool { get }
+    var nowPlaying: (sourceID: String, original: Bool)? { get }
+    var errorMessage: String? { get set }
+    func play(_ source: AudioSource, original: Bool, channels: Int, carrierType: CarrierType)
+    func stop()
+    func forget(_ sourceID: String)
+}
+
+extension VocoderEngine: VocoderEngineProviding {}

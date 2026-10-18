@@ -111,3 +111,16 @@ final class AudioLibrary {
         reload()
     }
 }
+
+/// The surface `SimulatorViewModel` actually calls -- lets tests substitute a fake
+/// library instead of hitting the real filesystem.
+@MainActor
+protocol AudioLibraryProviding: AnyObject {
+    var sources: [AudioSource] { get }
+    func reload()
+    @discardableResult func addRecording(from tempURL: URL) throws -> AudioSource
+    @discardableResult func addImportedFile(from sourceURL: URL) throws -> AudioSource
+    func delete(_ source: AudioSource)
+}
+
+extension AudioLibrary: AudioLibraryProviding {}
