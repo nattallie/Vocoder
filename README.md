@@ -6,7 +6,13 @@ A channel-vocoder simulation of cochlear implant (CI) hearing — hear what musi
 
 ## Demo
 
-[▶ Speech through the simulator](media/demo-speech.mp4) — 22 channels, tone carrier.
+▶ Speech through the simulator — 22 channels, tone carrier.
+
+
+
+https://github.com/user-attachments/assets/56290cef-6ed7-4647-bf1e-7309aa207ef3
+
+
 
 ## How it works
 
