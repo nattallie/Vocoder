@@ -26,6 +26,7 @@
 		B0F18522EEB0DE8E193E4532 /* SimulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93397FA7AE291BBB9F90C790 /* SimulatorView.swift */; };
 		BDA7CFAE5B2991109960CE64 /* Fakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619652F7CE2B32229574CDE0 /* Fakes.swift */; };
 		C8EDDE83D3E98129028B088D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137627FB1983714757A724EE /* Theme.swift */; };
+		D79B5CAFE11A45402949A2E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A0F2302FE5382B46B9C225B /* Assets.xcassets */; };
 		D9A11404169EAC43025CE97A /* SimulatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF52D6A8C6BB825F9169DE0 /* SimulatorViewModel.swift */; };
 		EAE9FF096833926916AC3972 /* music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 391932C669A14B88E3E7C214 /* music.wav */; };
 /* End PBXBuildFile section */
@@ -47,6 +48,7 @@
 		1396F3844EDAD26B2DCEEE52 /* AudioLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLibrary.swift; sourceTree = "<group>"; };
 		21D321A37B6BB3A9475F83EF /* VocoderEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocoderEngine.swift; sourceTree = "<group>"; };
 		27880706B6E9A4E468AA2C41 /* SimulatorViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorViewModelTests.swift; sourceTree = "<group>"; };
+		2A0F2302FE5382B46B9C225B /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Assets.xcassets; sourceTree = "<group>"; };
 		2D093000CB5CD400CD039E76 /* AudioFileLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFileLoader.swift; sourceTree = "<group>"; };
 		2FDA0DA3DF5474B301EBF5E1 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		391932C669A14B88E3E7C214 /* music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = music.wav; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			children = (
 				391932C669A14B88E3E7C214 /* music.wav */,
 				E4832F79DAD50D24F1EC42EB /* speech.wav */,
+				2A0F2302FE5382B46B9C225B /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -265,7 +268,7 @@
 			mainGroup = 4A8572986B0BFC7498E74544;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				556299E9054E7B72F9ED2A69 /* XCLocalSwiftPackageReference "../CIVocoderKit" */,
+				556299E9054E7B72F9ED2A69 /* XCLocalSwiftPackageReference "CIVocoderKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 18AD1A1718382904569C38DB /* Products */;
@@ -285,6 +288,7 @@
 			files = (
 				EAE9FF096833926916AC3972 /* music.wav in Resources */,
 				3D7F8A2C147CC4961841D49B /* speech.wav in Resources */,
+				D79B5CAFE11A45402949A2E3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,7 +573,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		556299E9054E7B72F9ED2A69 /* XCLocalSwiftPackageReference "../CIVocoderKit" */ = {
+		556299E9054E7B72F9ED2A69 /* XCLocalSwiftPackageReference "CIVocoderKit" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../CIVocoderKit;
 		};
