@@ -4,6 +4,10 @@ A channel-vocoder simulation of cochlear implant (CI) hearing — hear what musi
 
 **Disclaimer:** educational simulation, not a medical device or an accurate representation of any individual's hearing.
 
+## Demo
+
+[▶ Speech through the simulator](media/demo-speech.mp4) — 22 channels, tone carrier.
+
 ## How it works
 
 A channel vocoder splits audio into N log-spaced frequency bands, extracts each band's amplitude envelope (the loudness-over-time contour — roughly what a CI electrode can actually transmit), and re-synthesizes the sound from just that envelope applied to a synthetic carrier (filtered noise or a pure tone) per band. Discarding the fine spectral detail within each band and keeping only coarse frequency + envelope information approximates what a real CI listener receives. This reconstructs the classic method from Shannon et al. (1995) — see [References](#references).
@@ -15,6 +19,7 @@ notebooks/       Jupyter prototype of the DSP pipeline
 samples/         Test audio: a short speech clip, a short music clip
 CIVocoderKit/    The reusable Swift Package (DSP core)
 Vocoder/         The SwiftUI demo app
+media/           Demo clips
 ```
 
 ## References
