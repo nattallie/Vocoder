@@ -23,6 +23,14 @@ final class VocoderEngine {
     @ObservationIgnored private let player = AVAudioPlayerNode()
     @ObservationIgnored private var originalBuffers: [String: AVAudioPCMBuffer] = [:]
     @ObservationIgnored private var engineStarted = false
+    /// Sample rate/channel count the player->mixer connection is currently wired for.
+    /// Bundled clips alone span two sample rates (speech 16kHz, music 44.1kHz), and any
+    /// imported file could carry a third -- without tracking this, the connection (made
+    /// once, lazily) stayed locked to whichever format played first, so a later clip at
+    /// a different rate fed a mismatched buffer into it: wrong-speed audio or a hard
+    /// AVAudioEngine crash.
+    @ObservationIgnored private var connectedSampleRate: Double?
+    @ObservationIgnored private var connectedChannelCount: AVAudioChannelCount?
     /// Identifies the most recent `play()` call, so a stale completion handler from a
     /// buffer `stop()` just cancelled can't be mistaken for the new one that replaced
     /// it -- (sourceID, original) alone isn't unique enough: changing *just* the channel
@@ -35,13 +43,27 @@ final class VocoderEngine {
     }
 
     private func ensureEngineRunning(format: AVAudioFormat) throws {
-        if engine.outputConnectionPoints(for: player, outputBus: 0).isEmpty {
+        let formatChanged = connectedSampleRate != format.sampleRate || connectedChannelCount != format.channelCount
+        if formatChanged {
+            if engine.isRunning { engine.stop() }
+            if !engine.outputConnectionPoints(for: player, outputBus: 0).isEmpty {
+                engine.disconnectNodeOutput(player)
+            }
             engine.connect(player, to: engine.mainMixerNode, format: format)
+            connectedSampleRate = format.sampleRate
+            connectedChannelCount = format.channelCount
         }
+
+        // Recording (AudioRecorderController) switches the session to .playAndRecord and
+        // never switches it back; re-asserting .playback on every play() -- not just the
+        // first one ever -- is what actually guarantees correct output routing after a
+        // recording, since engine.isRunning alone would otherwise skip this forever once
+        // true. Cheap to call even when already set.
+        let session = AVAudioSession.sharedInstance()
+        try session.setCategory(.playback, mode: .default)
+        try session.setActive(true)
+
         if !engine.isRunning {
-            let session = AVAudioSession.sharedInstance()
-            try session.setCategory(.playback, mode: .default)
-            try session.setActive(true)
             try engine.start()
             engineStarted = true
         }

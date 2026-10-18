@@ -6,6 +6,20 @@ import Foundation
     #expect(!CIVocoderKit.version.isEmpty)
 }
 
+/// Regression test: `fMax` defaults to 7000 Hz, which assumes a sample rate high enough
+/// that 7000 Hz sits safely under Nyquist. A sample rate below ~14kHz used to push a band
+/// edge past Nyquist, sending the bilinear-transform prewarping past its valid domain and
+/// producing NaN filter coefficients (caught via code review, fixed by clamping fMax to
+/// the actual Nyquist frequency in Filterbank.init).
+@Test(arguments: [8000.0, 11025.0, 12000.0])
+func vocodeStaysFiniteBelowDefaultFMaxNyquist(sampleRate: Double) throws {
+    let signal = (0..<Int(sampleRate)).map { Float(sin(2 * Double.pi * 300 * Double($0) / sampleRate)) }
+    let out = CIVocoder.vocode(audio: signal, sampleRate: sampleRate, channels: 8, carrierType: .noise)
+    #expect(out.count == signal.count)
+    #expect(!out.contains { $0.isNaN }, "sampleRate=\(sampleRate): produced NaN samples")
+    #expect(!out.contains { $0.isInfinite }, "sampleRate=\(sampleRate): produced infinite samples")
+}
+
 // MARK: - Reference-data fixture (dumped from the validated Python notebooks/vocoder.py)
 
 private struct Reference: Decodable {
